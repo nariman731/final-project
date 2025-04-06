@@ -29,10 +29,20 @@ export class App extends Component {
   }
 
   onItemCreate(amount) {
-    const item = new ListItem({ amount })
+    const item = new ListItem({
+      amount,
+      onRemove: () => this.onItemRemove(item),
+    })
     this.state.donates.push(item)
     this.donateList.addItem(item)
     this.state.total += amount
+    this.$total.textContent = this.state.total
+  }
+
+  onItemRemove(item) {
+    item.$rootElement.remove()
+    this.state.donates = this.state.donates.filter((i) => i !== item)
+    this.state.total -= item.state.amount
     this.$total.textContent = this.state.total
   }
 }

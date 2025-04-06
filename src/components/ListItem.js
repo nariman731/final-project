@@ -24,7 +24,17 @@ export class ListItem extends Component {
     const bold = document.createElement('b')
     bold.textContent = `$${amount}`
 
+    const $button = document.createElement('button')
+    $button.className = 'delete-button'
+    $button.textContent = 'Удалить'
+    $button.addEventListener('click', () => {
+      if (props.onRemove) {
+        props.onRemove()
+      }
+    })
+
     this.$rootElement.appendChild(textNode)
     this.$rootElement.appendChild(bold)
+    this.$rootElement.appendChild($button)
   }
 }
